@@ -26,16 +26,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    kind: echo
-  name: echo-service-1
-spec:
-  ports:
-    - name: http
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
+   name: myservice-v1
+spec:  
   selector:
-    name: echo-service-1
-  type: NodePort
+    app: myservice-v1
+  ports:      
+    - port: 8080
+      name: http
+      targetPort: 8080
+
 ---
