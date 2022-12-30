@@ -11,10 +11,10 @@ spec:
       paths:
       - backend:
           service:
-            name: myservice-v1
+            name: myservicev1
             port:
               number: 8080
-        path: /myservice-v1
+        path: /myservicev1
         pathType: Prefix
       - backend:
           service:
