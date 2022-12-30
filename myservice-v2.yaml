@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myservice-v2
+  labels:
+    app: myservice-v2
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myservice-v2      
+  template:
+    metadata:
+      labels:
+        app: myservice-v2
+        version: v2
+    spec:     
+      containers:
+      - name: myservice-v2
+        image: garyr/myservice:2.0.0 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice-v2
+spec:  
+  selector:
+    app: myservice-v2
+  ports:      
+    - port: 8080
+      name: http
+      targetPort: 8080
