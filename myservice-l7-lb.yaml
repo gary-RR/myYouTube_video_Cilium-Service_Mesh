@@ -28,7 +28,7 @@ spec:
           domains: [ "*" ]
           routes:
             - match:
-                prefix: "/"
+                prefix: "/computer"
               route:
                 weighted_clusters:
                   clusters:
