@@ -62,5 +62,3 @@ spec:
         split_external_local_origin_errors: true
         consecutive_local_origin_failure: 2
 
-
-
