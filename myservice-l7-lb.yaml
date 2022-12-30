@@ -33,7 +33,7 @@ spec:
                 weighted_clusters:
                   clusters:
                     - name: "default/myservice-v1"
-                      weight: 89
+                      weight: 80
                     - name: "default/myservice-v2"
                       weight: 20
                 retry_policy:
