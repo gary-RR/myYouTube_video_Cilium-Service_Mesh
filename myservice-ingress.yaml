@@ -11,7 +11,7 @@ spec:
       paths:
       - backend:
           service:
-            name: myservice-v1/computer
+            name: myservice-v1
             port:
               number: 8080
         path: /
