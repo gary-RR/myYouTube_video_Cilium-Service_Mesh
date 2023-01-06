@@ -39,12 +39,7 @@ spec:
                 retry_policy:
                   retry_on: 5xx
                   num_retries: 3
-                  per_try_timeout: 1s
-                regex_rewrite:
-                  pattern:
-                    google_re2: { }
-                    regex: "^/info.*$"
-                  substitution: "/computer"    
+                  per_try_timeout: 1s    
             - match:
                 prefix: "/health"
               route:
