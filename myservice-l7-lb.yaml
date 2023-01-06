@@ -26,7 +26,7 @@ spec:
       virtual_hosts:
         - name: "lb_route"
           domains: [ "*" ]
-          routes:
+          routes:            
             - match:
                 prefix: "/computer"
               route:
@@ -58,11 +58,24 @@ spec:
                   retry_on: 5xx
                   num_retries: 3
                   per_try_timeout: 1s
+            - match:
+                prefix: "/info"
+              route:
+                weighted_clusters:
+                  clusters:
+                    - name: "default/myservice-v1"
+                      weight: 80
+                    - name: "default/myservice-v2"
+                      weight: 20
+                retry_policy:
+                  retry_on: 5xx
+                  num_retries: 3
+                  per_try_timeout: 1s
                 regex_rewrite:
                   pattern:
                     google_re2: { }
                     regex: "^/info.*$"
-                  substitution: "/computer"
+                  substitution: "/computer"                         
     - "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
       name: "default/myservice-v1"
       connect_timeout: 5s
@@ -78,4 +91,4 @@ spec:
       type: EDS
       outlier_detection:
         split_external_local_origin_errors: true
-        consecutive_local_origin_failure: 2
+        consecutive_local_origin_failure: 2 
