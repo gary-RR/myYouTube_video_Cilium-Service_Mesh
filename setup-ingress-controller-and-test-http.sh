@@ -38,20 +38,6 @@ echo $HTTP_INGRESS
 curl --fail -s http://"$HTTP_INGRESS"/details/1 | jq
 curl --fail -s http://"$HTTP_INGRESS"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #****************************************************gRPC example*********************************************************************************
 kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
 
@@ -78,18 +64,6 @@ grpcurl -plaintext -proto ./demo.proto $GRPC_INGRESS:80 hipstershop.CurrencyServ
 #To access the product catalog service:
 grpcurl -plaintext -proto ./demo.proto $GRPC_INGRESS:80 hipstershop.ProductCatalogService/ListProducts
 
-
-
-
-
-
-
-
-
-
-
-
-
 #*****************************************************************************TLS termination********************************************************************************
 #Install Go
 sudo apt install golang -y
@@ -109,7 +83,6 @@ chmod +x minica
 # Create a Kubernetes secret with this demo key and certificate:
 kubectl create secret tls demo-cert --key=_.cilium.rocks/key.pem --cert=_.cilium.rocks/cert.pem
 
-
 # The Ingress configuration for this demo provides the same routing as those demos but with the addition of TLS termination.
 kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/HEAD/examples/kubernetes/servicemesh/tls-ingress.yaml
 
@@ -120,11 +93,9 @@ kubectl get ingress
 sudo nano /etc/hosts
 curl --cacert minica.pem -v https://bookinfo.cilium.rocks/details/1
 
-
 #Download demo.proto file if you have not done before
 curl -o demo.proto https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/pb/demo.proto
 grpcurl -proto ./demo.proto -cacert minica.pem hipstershop.cilium.rocks:443 hipstershop.ProductCatalogService/ListProducts 
-
 
 
 #Cleanup
@@ -135,10 +106,3 @@ kubectl delete -f https://raw.githubusercontent.com/GoogleCloudPlatform/microser
 kubectl delete -f https://raw.githubusercontent.com/cilium/cilium/HEAD/examples/kubernetes/servicemesh/basic-ingress.yaml
 kubectl delete -f  https://raw.githubusercontent.com/istio/istio/release-1.11/samples/bookinfo/platform/kube/bookinfo.yaml
 
-helm upgrade cilium cilium/cilium \
-     --namespace kube-system \
-     --reuse-values \
-     --set ingressController.enabled=false
-     
-kubectl -n kube-system rollout restart deployment/cilium-operator
-kubectl -n kube-system rollout restart ds/cilium
